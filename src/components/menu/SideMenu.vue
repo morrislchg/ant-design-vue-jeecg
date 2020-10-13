@@ -8,11 +8,14 @@
     <logo />
     <s-menu
       :collapsed="collapsed"
-      :menu="menus"
+      :initMenu="initMenus"
       :theme="theme"
       @select="onSelect"
       :mode="mode"
-      :style="smenuStyle">
+      :style="smenuStyle"
+      :openKeys="openKeySelect"
+      :menu="menus"
+     >
     </s-menu>
   </a-layout-sider>
 
@@ -21,9 +24,8 @@
 <script>
   import ALayoutSider from "ant-design-vue/es/layout/Sider"
   import Logo from '../tools/Logo'
-  import SMenu from './index'
+  import SMenu from './sideIndex'
   import { mixin, mixinDevice } from '@/utils/mixin.js'
-
   export default {
     name: "SideMenu",
     components: { ALayoutSider, Logo, SMenu },
@@ -49,12 +51,37 @@
         required: false,
         default: false
       },
+        initMenus:{
+            type: Array,
+            required: true
+        },
       menus: {
         type: Array,
         required: true
-      }
+      },
+        openKeySelect:{
+            type: Array,
+            required: true
+        }
     },
+      data(){
+        return{
+           /* menusList:[],
+            openKeyList:[]*/
+        }
+      },
     computed:{
+        /*  menusList(){
+          let Arr=[]
+            Arr.push(localStorage.getItem('selectMenu')?JSON.parse(localStorage.getItem('selectMenu')):'')
+            console.log(Arr)
+            return Arr
+        },
+        openKeyList(){
+            let Arr=[]
+            Arr.push(localStorage.getItem('selectMenuKey')?localStorage.getItem('selectMenuKey'):'')
+            return Arr
+        },*/
       smenuStyle() {
         let style = { 'padding': '0' }
         if (this.fixSiderbar) {
@@ -65,10 +92,12 @@
         return style
       }
     },
+
     methods: {
       onSelect (obj) {
+          console.log("点击保存"+obj)
         this.$emit('menuSelect', obj)
-      }
+      },
     }
   }
 </script>

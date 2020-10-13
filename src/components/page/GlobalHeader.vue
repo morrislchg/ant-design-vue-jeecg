@@ -17,9 +17,30 @@
         :type="collapsed ? 'menu-unfold' : 'menu-fold'"
         @click="toggle"/>
 
-      <span v-if="device === 'desktop'">欢迎进入 Jeecg-Boot 企业级快速开发平台</span>
+      <span v-if="device === 'desktop'">欢迎进入 开发平台</span>
       <span v-else>Jeecg-Boot</span>
 
+   <!-- <a-menu-list
+      mode="horizontal"
+      :menu="menus"
+      :theme="theme"
+      @selectMenu="selectMenu"
+      style="display: inline-block;background-color:#1890FF;width:50%;color:#fff"
+    />-->
+      <a-menu-list
+        mode="horizontal"
+        :menu="menus"
+        :theme="theme"
+        @menuSecond="selectMenu"
+        style="display: inline-block;background-color:#1890FF;width:50%;color:#fff"
+      />
+      <s-menu
+        mode="horizontal"
+        :menu="menus"
+        :theme="theme"
+        @select="onSelect"
+        v-if="false"
+      style="display: inline-block;background-color:#1890FF;width:50%;color:#fff" />
       <user-menu :theme="theme"/>
     </div>
     <!-- 顶部导航栏模式 -->
@@ -42,21 +63,23 @@
         <user-menu class="header-index-right" :theme="theme" :style="topMenuStyle.headerIndexRight"/>
       </div>
     </div>
-
-
   </a-layout-header>
 </template>
 
 <script>
   import UserMenu from '../tools/UserMenu'
-  import SMenu from '../menu/'
+  import SMenu from '../menu/index'
   import Logo from '../tools/Logo'
 
   import { mixin } from '@/utils/mixin.js'
+  import SideMenu from "../menu/SideMenu";
+  import AMenuList from "./AMenuList";
 
   export default {
     name: 'GlobalHeader',
     components: {
+        AMenuList,
+        SideMenu,
       UserMenu,
       SMenu,
       Logo,
@@ -77,17 +100,18 @@
         required: false,
         default: 'dark'
       },
-      collapsed: {
-        type: Boolean,
-        required: false,
-        default: false
-      },
-      device: {
-        type: String,
-        required: false,
-        default: 'desktop'
-      }
+        collapsed: {
+            type: Boolean,
+            required: false,
+            default: false
+        },
+        device: {
+            type: String,
+            required: false,
+            default: 'desktop'
+        }
     },
+
     data() {
       return {
         headerBarFixed: false,
@@ -115,6 +139,17 @@
         }
       }
     },
+      computed:{
+          smenuStyle() {
+              let style = { 'padding': '0' }
+              if (this.fixSiderbar) {
+                  style['height'] = 'calc(100% - 59px)'
+                  style['overflow'] = 'auto'
+                  style['overflow-x'] = 'hidden'
+              }
+              return style
+          }
+      },
     //update-end--author:sunjianlei---date:20190508------for: 顶部导航栏过长时显示更多按钮-----
     mounted() {
       window.addEventListener('scroll', this.handleScroll)
@@ -125,6 +160,13 @@
       //update-end--author:sunjianlei---date:20190508------for: 顶部导航栏过长时显示更多按钮-----
     },
     methods: {
+        selectMenu(item,openKeys){
+            this.$emit('menuSecond',item,openKeys)
+        },
+        onSelect (obj) {
+            // this.$emit('menuSelect', obj)
+            console.log('click', obj);
+        },
       handleScroll() {
         if (this.autoHideHeader) {
           let scrollTop = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop
@@ -140,6 +182,9 @@
       toggle() {
         this.$emit('toggle')
       },
+        onSelect (obj) {
+            this.$emit('menuSelect', obj)
+        },
       //update-begin--author:sunjianlei---date:20190508------for: 顶部导航栏过长时显示更多按钮-----
       buildTopMenuStyle() {
         if (this.mode === 'topmenu') {

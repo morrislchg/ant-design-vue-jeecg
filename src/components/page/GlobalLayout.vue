@@ -20,10 +20,21 @@
           :collapsible="true"></side-menu>
       </a-drawer>
 
-      <side-menu
+    <!--  <side-menu
         v-else
         mode="inline"
-        :menus="menus"
+        :menus="menuSecondT"
+        :openKeys="keyPath"
+        @menuSelect="myMenuSelect"
+        :theme="navTheme"
+        :collapsed="collapsed"
+        :collapsible="true"></side-menu>-->
+      <side-menu
+        v-else
+        :menus="menuSecondT"
+        :openKeySelect="keyPath"
+        :initMenus="menus"
+        mode="inline"
         @menuSelect="myMenuSelect"
         :theme="navTheme"
         :collapsed="collapsed"
@@ -58,10 +69,15 @@
         :mode="layoutMode"
         :menus="menus"
         :theme="navTheme"
-        :collapsed="collapsed"
-        :device="device"
         @toggle="toggle"
+        @menuSecond="menuSecond"
       />
+     <!-- <global-header
+        :mode="layoutMode"
+        :menus="menus"
+        :theme="navTheme"
+        @toggle="toggle"
+      />-->
 
       <!-- layout content -->
       <a-layout-content :style="{ height: '100%', paddingTop: fixedHeader ? '59px' : '0' }">
@@ -92,7 +108,6 @@
   import { triggerWindowResizeEvent } from '@/utils/util'
   import { mapState, mapActions } from 'vuex'
   import { mixin, mixinDevice } from '@/utils/mixin.js'
-
   export default {
     name: 'GlobalLayout',
     components: {
@@ -110,7 +125,9 @@
       return {
         collapsed: false,
         activeMenu:{},
-        menus: []
+        menus: [],
+        menuSecondT:[],
+        keyPath:[]
       }
     },
     computed: {
@@ -137,6 +154,7 @@
       //console.log('----navTheme------'+this.navTheme)
       //--update-end----author:scott---date:20190320------for:根据后台菜单配置，判断是否路由菜单字段，动态选择是否生成路由（为了支持参数URL菜单）------
     },
+
     methods: {
       ...mapActions(['setSidebar']),
       toggle() {
@@ -144,6 +162,12 @@
         this.setSidebar(!this.collapsed)
         triggerWindowResizeEvent()
       },
+        menuSecond(item,key){
+            this.menuSecondT=[]
+            this.keyPath=[]
+            this.menuSecondT.push(item)
+            this.keyPath.push(key)
+        },
       menuSelect() {
         if (!this.isDesktop()) {
           this.collapsed = false
@@ -306,7 +330,18 @@
       box-shadow: 0 1px 4px rgba(0, 21, 41, .08);
       position: relative;
     }
-
+    .ant-menu.ant-menu-horizontal > .ant-menu-submenu-selected ,
+    .ant-menu-horizontal > .ant-menu-item-selected,
+    .ant-menu-horizontal > .ant-menu-submenu-active:hover,
+    .ant-menu.ant-menu-horizontal > .ant-menu-item:hover, .ant-menu.ant-menu-horizontal > .ant-menu-item > a:hover,
+    .ant-menu-submenu-title:hover{
+      border-bottom: 2px solid #fff;
+      color: #fff !important;
+      background-color: #3fbdf6 !important;
+    }
+    .ant-menu-horizontal , .ant-menu-horizontal > .ant-menu-item >span>span> a ,.ant-menu-horizontal > .ant-menu-item-selected > a{
+      color: #fff !important;
+    }
     .header, .top-nav-header-index {
 
       .user-wrapper {
@@ -440,7 +475,20 @@
           height: 64px;
           line-height: 64px;
         }
-
+        .ant-menu.ant-menu-horizontal > .ant-menu-submenu-selected {
+          border-bottom: 2px solid #1890FF;
+          color: #fff !important;
+          background-color: #00A0E9 !important;
+        }
+        .ant-menu.ant-menu-horizontal > .ant-menu-item > a {
+          color: #fff !important;
+        }
+        .ant-menu.ant-menu-horizontal > .ant-menu-item > a:hover {
+          color: #fff;
+        }
+        .ant-menu.ant-menu-horizontal > .ant-menu-item-selected > a {
+          color: #fff;
+        }
         .header-index-left {
           flex: 1 1;
           display: flex;
