@@ -1,7 +1,7 @@
 <template>
   <div>
-    <a-menu  :mode="mode" style="width: 100%;">
-      <a-menu-item v-for="(item,index) in menu" :key="item.path" @click="select">
+    <a-menu  :mode="mode" style="width: 100%;border:none">
+      <a-menu-item v-for="(item,index) in menusList" :key="item.path" @click="select">
         <span><a-icon :type="item.meta.icon" /><span><a>{{item.meta.title}}</a></span></span>
       </a-menu-item>
     </a-menu>
@@ -30,9 +30,20 @@
         },
         data(){
             return{
+                menusList:[]
             }
         },
+        mounted(){
+            this.initMenus()
+        },
         methods:{
+            initMenus(){
+                const { mode, theme, menu } = this
+                this.menusList=menu.filter(item=>{
+                    return item.path!='/dashboard/analysis'
+                })
+                console.log(this.menusList)
+            },
             select(e){
                 const { mode, theme, menu } = this
                 menu.map(item=>{

@@ -17,7 +17,7 @@
         :type="collapsed ? 'menu-unfold' : 'menu-fold'"
         @click="toggle"/>
 
-      <span v-if="device === 'desktop'">欢迎进入 开发平台</span>
+      <span v-if="device === 'desktop'"></span>
       <span v-else>Jeecg-Boot</span>
 
    <!-- <a-menu-list
@@ -32,7 +32,7 @@
         :menu="menus"
         :theme="theme"
         @menuSecond="selectMenu"
-        style="display: inline-block;background-color:#1890FF;width:50%;color:#fff"
+        style="display: inline-block;background-color:#1890FF;width:77%;color:#fff"
       />
       <s-menu
         mode="horizontal"

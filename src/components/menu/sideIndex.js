@@ -73,8 +73,12 @@ export default {
     init(){
       const { mode, theme, initMenu,menu } = this
       if(menu.length<=0){
-        menu.push(initMenu[0])
-        this.selectedKeys.push(initMenu[0].path)
+        let list=initMenu.filter(item=>{
+          return item.path!='/dashboard/analysis'
+        })
+        menu.push(list[0])
+        this.selectedKeys.push(list[0].path)
+        this.openKeys.push(list[0].path)
       }
     },
     // select menu item

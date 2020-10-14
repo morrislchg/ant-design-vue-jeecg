@@ -330,11 +330,31 @@
       box-shadow: 0 1px 4px rgba(0, 21, 41, .08);
       position: relative;
     }
+    .ant-menu-inline > .ant-menu-submenu > .ant-menu-submenu-title{
+      height: 40px;
+      line-height: 40px;
+      height: 40px;
+      line-height: 40px;
+      margin: 0;
+    }
+    .ant-menu-inline > .ant-menu-submenu > .ant-menu-submenu-title:hover{
+      height: 40px;
+      line-height: 40px;
+      height: 40px;
+      line-height: 40px;
+      margin: 0;
+      color: #fff !important;
+      background-color: #3fbdf6 !important;
+    }
+    .ant-menu-inline > .ant-menu-submenu > .ant-menu-submenu-title:active{
+      color: #fff !important;
+      background-color: #3fbdf6 !important;
+    }
     .ant-menu.ant-menu-horizontal > .ant-menu-submenu-selected ,
     .ant-menu-horizontal > .ant-menu-item-selected,
     .ant-menu-horizontal > .ant-menu-submenu-active:hover,
     .ant-menu.ant-menu-horizontal > .ant-menu-item:hover, .ant-menu.ant-menu-horizontal > .ant-menu-item > a:hover,
-    .ant-menu-submenu-title:hover{
+    .ant-menu.ant-menu-horizontal >.ant-menu-submenu-title:hover{
       border-bottom: 2px solid #fff;
       color: #fff !important;
       background-color: #3fbdf6 !important;
@@ -350,7 +370,7 @@
 
         .action {
           cursor: pointer;
-          padding: 0 14px;
+          padding: 0 8px;
           display: inline-block;
           transition: all .3s;
 
