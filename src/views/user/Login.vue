@@ -85,12 +85,12 @@
 
       <a-form-item>
         <a-checkbox v-decorator="['rememberMe', {initialValue: true, valuePropName: 'checked'}]" >自动登陆</a-checkbox>
-        <router-link :to="{ name: 'alteration'}" class="forge-password" style="float: right;">
-          忘记密码
-        </router-link>
-       <router-link :to="{ name: 'register'}" class="forge-password" style="float: right;margin-right: 10px" >
-          注册账户
-        </router-link>
+<!--        <router-link :to="{ name: 'alteration'}" class="forge-password" style="float: right;">-->
+<!--          忘记密码-->
+<!--        </router-link>-->
+<!--       <router-link :to="{ name: 'register'}" class="forge-password" style="float: right;margin-right: 10px" >-->
+<!--          注册账户-->
+<!--        </router-link>-->
       </a-form-item>
 
       <a-form-item style="margin-top:24px">
@@ -105,12 +105,12 @@
         </a-button>
       </a-form-item>
 
-      <div class="user-login-other">
-        <span>其他登陆方式</span>
-        <a @click="onThirdLogin('github')" title="github"><a-icon class="item-icon" type="github"></a-icon></a>
-        <a @click="onThirdLogin('wechat_enterprise')" title="企业微信"><a-icon class="item-icon" type="wechat"></a-icon></a>
-        <a @click="onThirdLogin('dingtalk')" title="钉钉"><a-icon class="item-icon" type="dingding"></a-icon></a>
-      </div>
+<!--      <div class="user-login-other">-->
+<!--        <span>其他登陆方式</span>-->
+<!--        <a @click="onThirdLogin('github')" title="github"><a-icon class="item-icon" type="github"></a-icon></a>-->
+<!--        <a @click="onThirdLogin('wechat_enterprise')" title="企业微信"><a-icon class="item-icon" type="wechat"></a-icon></a>-->
+<!--        <a @click="onThirdLogin('dingtalk')" title="钉钉"><a-icon class="item-icon" type="dingding"></a-icon></a>-->
+<!--      </div>-->
     </a-form>
 
     <two-step-captcha

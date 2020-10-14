@@ -4,41 +4,41 @@
       <!-- 主表单区域 -->
       <a-form :form="form" slot="detail">
         <a-row>
-          <a-col :span="24" >
-            <a-form-item label="姓名" :labelCol="labelCol" :wrapperCol="wrapperCol">
+          <a-col :span="12" >
+            <a-form-item label="姓名"  :labelCol="{span:8}" :wrapperCol="wrapperCol">
               <a-input v-decorator="['name']" placeholder="请输入姓名"></a-input>
             </a-form-item>
           </a-col>
-          <a-col :span="24" >
+          <a-col :span="12" >
             <a-form-item label="所在部门" :labelCol="labelCol" :wrapperCol="wrapperCol">
               <a-input v-decorator="['department']" placeholder="请输入所在部门"></a-input>
             </a-form-item>
           </a-col>
-          <a-col :span="24" >
-            <a-form-item label="岗级" :labelCol="labelCol" :wrapperCol="wrapperCol">
+          <a-col :span="12" >
+            <a-form-item label="岗级" :labelCol="{span:8}" :wrapperCol="wrapperCol">
               <a-input v-decorator="['grade']" placeholder="请输入岗级"></a-input>
             </a-form-item>
           </a-col>
           <a-col :span="24" >
-            <a-form-item label="岗位指标已完成合同核算额" :labelCol="labelCol" :wrapperCol="wrapperCol">
+            <a-form-item label="岗位指标已完成合同核算额" :labelCol="{span:4}" :wrapperCol="{span:18}">
               <a-input v-decorator="['budget']" placeholder="请输入岗位指标已完成合同核算额"></a-input>
             </a-form-item>
           </a-col>
           <a-col :span="24" >
-            <a-form-item label="岗位指标已完成回款核算额" :labelCol="labelCol" :wrapperCol="wrapperCol">
+            <a-form-item label="岗位指标已完成回款核算额" :labelCol="{span:4}" :wrapperCol="{span:18}">
               <a-input v-decorator="['accountsReceivable']" placeholder="请输入岗位指标已完成回款核算额"></a-input>
             </a-form-item>
           </a-col>
-          <a-col :span="24" >
-            <a-form-item label="本周工作完成情况" :labelCol="labelCol" :wrapperCol="wrapperCol">
-              <a-input v-decorator="['completionWeekWork']" placeholder="请输入本周工作完成情况"></a-input>
-            </a-form-item>
-          </a-col>
-          <a-col :span="24" >
-            <a-form-item label="下周工作计划安排" :labelCol="labelCol" :wrapperCol="wrapperCol">
-              <a-input v-decorator="['nextWeekPlan']" placeholder="请输入下周工作计划安排"></a-input>
-            </a-form-item>
-          </a-col>
+<!--          <a-col :span="24" >-->
+<!--            <a-form-item label="本周工作完成情况" :labelCol="labelCol" :wrapperCol="wrapperCol">-->
+<!--              <a-input v-decorator="['completionWeekWork']" placeholder="请输入本周工作完成情况"></a-input>-->
+<!--            </a-form-item>-->
+<!--          </a-col>-->
+<!--          <a-col :span="24" >-->
+<!--            <a-form-item label="下周工作计划安排" :labelCol="labelCol" :wrapperCol="wrapperCol">-->
+<!--              <a-input v-decorator="['nextWeekPlan']" placeholder="请输入下周工作计划安排"></a-input>-->
+<!--            </a-form-item>-->
+<!--          </a-col>-->
         </a-row>
       </a-form>
     </j-form-container>

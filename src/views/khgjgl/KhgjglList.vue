@@ -121,12 +121,14 @@
             }
           },
           {
-            title:'拜访时间',
+            title:'拜访开始时间',
             align:"center",
-            dataIndex: 'visitingTime',
-            customRender:function (text) {
-              return !text?"":(text.length>10?text.substr(0,10):text)
-            }
+            dataIndex: 'visitingStarttime'
+          },
+          {
+            title:'拜访结束时间',
+            align:"center",
+            dataIndex: 'visitingEndtime'
           },
           {
             title:'拜访地点',
@@ -164,6 +166,11 @@
             dataIndex: 'visitSummary'
           },
           {
+            title:'拜访纪要',
+            align:"center",
+            dataIndex: 'visit2summary'
+          },
+          {
             title: '操作',
             dataIndex: 'action',
             align:"center",
@@ -178,7 +185,7 @@
           deleteBatch: "/estar/khgjgl/deleteBatch",
           exportXlsUrl: "/estar/khgjgl/exportXls",
           importExcelUrl: "estar/khgjgl/importExcel",
-          
+
         },
         dictOptions:{},
       }
@@ -191,6 +198,11 @@
       },
     },
     methods: {
+      handleAdd: function () {
+        this.$refs.modalForm.add();
+        this.$refs.modalForm.title = "新增";
+        this.$refs.modalForm.disableSubmit = false;
+      },
       initDictConfig(){
       }
     }
