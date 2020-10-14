@@ -176,6 +176,9 @@
 <!-- update_begin author:sunjianlei date:20190530 for: 选中首页的时候不显示背景颜色 -->
 <style lang="less">
   .ant-menu.ant-menu-root {
+    .ant-menu-inline .ant-menu-item:not(:last-child){
+      margin-bottom: 0px !important;
+    }
     & > .ant-menu-item:first-child {
       background-color: transparent;
 
