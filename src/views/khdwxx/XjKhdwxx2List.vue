@@ -53,9 +53,48 @@
 
     <!-- table区域-begin -->
     <div>
+
+      <div style="margin-bottom: 10px;">
+        <a-radio-group default-value="0,1,2,3" v-model="status" @change="getValue" size="large" button-style="solid">
+          <a-radio-button value="0,1,2,3">
+            全部
+          </a-radio-button>
+          <a-radio-button value="1">
+            我的待办
+          </a-radio-button>
+          <a-radio-button value="2">
+            我的已办
+          </a-radio-button>
+          <a-radio-button value="3">
+            我的办结
+          </a-radio-button>
+        </a-radio-group>
+
+      </div>
+
       <div class="ant-alert ant-alert-info" style="margin-bottom: 16px;">
         <i class="anticon anticon-info-circle ant-alert-icon"></i> 已选择 <a style="font-weight: 600">{{ selectedRowKeys.length }}</a>项
         <a style="margin-left: 24px" @click="onClearSelected">清空</a>
+
+        <span style="float:right;">
+          <a @click="loadData()"><a-icon type="sync" />刷新</a>
+          <a-divider type="vertical" />
+          <a-popover title="自定义列" trigger="click" placement="leftBottom">
+            <template slot="content">
+              <a-checkbox-group @change="onColSettingsChange" v-model="settingColumns" :defaultValue="settingColumns">
+                <a-row>
+                  <template v-for="(item,index) in defColumns">
+                    <template v-if="item.key!='rowIndex'&& item.dataIndex!='action'">
+                        <a-col :span="12"><a-checkbox :value="item.dataIndex">{{ item.title }}</a-checkbox></a-col>
+                    </template>
+                  </template>
+                </a-row>
+              </a-checkbox-group>
+            </template>
+            <a><a-icon type="setting" />设置</a>
+          </a-popover>
+        </span>
+
       </div>
 
       <a-table
@@ -126,7 +165,9 @@
   import { JeecgListMixin } from '@/mixins/JeecgListMixin'
   import XjKhdwxx2Modal from './modules/XjKhdwxx2Modal'
   import Area from '@/components/_util/Area'
+  import Vue from 'vue'
   import '@/assets/less/TableExpand.less'
+  import { filterObj } from '@/utils/util'
 
   export default {
     name: "XjKhdwxx2List",
@@ -137,8 +178,12 @@
     data () {
       return {
         description: '客户单位信息管理页面',
-        // 表头
-        columns: [
+        //表头
+        columns:[],
+        //列设置
+        settingColumns:[],
+        //列定义
+        defColumns: [
           {
             title: '序号',
             dataIndex: '',
@@ -186,13 +231,20 @@
             dataIndex: 'updateTime'
           },
           {
+            title:'状态信息',
+            align:"center",
+            dataIndex: 'status_dictText'
+          },
+          {
             title: '操作',
             dataIndex: 'action',
             align:"center",
             fixed:"right",
+            width: 150,
             scopedSlots: { customRender: 'action' },
           }
         ],
+        status: '0,1,2,3',
         url: {
           list: "/estar/xjKhdwxx2/list",
           delete: "/estar/xjKhdwxx2/delete",
@@ -205,6 +257,7 @@
       }
     },
     created() {
+      this.initColumns();
       this.pcaData = new Area()
     },
     computed: {
@@ -213,11 +266,74 @@
       }
     },
     methods: {
+      getValue(e) {
+
+        this.status = e.target.value
+        this.loadData(1)
+      },
+      getQueryParams() {
+        //获取查询条件
+        let sqp = {}
+        if (this.superQueryParams) {
+          sqp['superQueryParams'] = encodeURI(this.superQueryParams)
+          sqp['superQueryMatchType'] = this.superQueryMatchType
+        }
+        var param = Object.assign(sqp, this.queryParam, this.isorter, this.filters)
+        param.field = this.getQueryField()
+        param.pageNo = this.ipagination.current
+        param.pageSize = this.ipagination.pageSize
+        param.status = this.status
+        return filterObj(param)
+      },
       getPcaText(code){
         return this.pcaData.getText(code);
       },
       initDictConfig(){
       },
+
+      //列设置更改事件
+      onColSettingsChange (checkedValues) {
+        var key = this.$route.name+":colsettings";
+        Vue.ls.set(key, checkedValues, 7 * 24 * 60 * 60 * 1000)
+        this.settingColumns = checkedValues;
+        const cols = this.defColumns.filter(item => {
+          if(item.key =='rowIndex'|| item.dataIndex=='action'){
+            return true
+          }
+          if (this.settingColumns.includes(item.dataIndex)) {
+            return true
+          }
+          return false
+        })
+        this.columns =  cols;
+      },
+      initColumns(){
+        //权限过滤（列权限控制时打开，修改第二个参数为授权码前缀）
+        //this.defColumns = colAuthFilter(this.defColumns,'testdemo:');
+
+        var key = this.$route.name+":colsettings";
+        let colSettings= Vue.ls.get(key);
+        if(colSettings==null||colSettings==undefined){
+          let allSettingColumns = [];
+          this.defColumns.forEach(function (item,i,array ) {
+            allSettingColumns.push(item.dataIndex);
+          })
+          this.settingColumns = allSettingColumns;
+          this.columns = this.defColumns;
+        }else{
+          this.settingColumns = colSettings;
+          const cols = this.defColumns.filter(item => {
+            if(item.key =='rowIndex'|| item.dataIndex=='action'){
+              return true;
+            }
+            if (colSettings.includes(item.dataIndex)) {
+              return true;
+            }
+            return false;
+          })
+          this.columns =  cols;
+        }
+      }
 
     }
   }

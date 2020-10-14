@@ -53,24 +53,26 @@
               <a-input v-decorator="['role', validatorRules.role]" placeholder="请输入角色"></a-input>
             </a-form-item>
           </a-col>
-          <a-col :span="12">
-            <a-form-item label="区域" :labelCol="labelCol" :wrapperCol="wrapperCol">
+          <a-col :span="24">
+            <a-form-item label="所在区域" :labelCol="{span:3}" :wrapperCol="{span:20}">
              <j-area-linkage type="cascader" v-decorator="['region', validatorRules.region]" placeholder="请输入省市区"/>
             </a-form-item>
           </a-col>
-          <a-col :span="12">
-            <a-form-item label="家庭住址" :labelCol="labelCol" :wrapperCol="wrapperCol">
-              <a-input v-decorator="['adrress']" placeholder="请输入家庭住址"></a-input>
+          <a-col :span="24">
+            <a-form-item label="家庭住址" :labelCol="{span:3}" :wrapperCol="{span:20}">
+              <a-input v-decorator="['address', validatorRules.address]" placeholder="请输入家庭地址"></a-input>
             </a-form-item>
           </a-col>
           <a-col :span="24" >
-            <a-form-item label=" 兴趣爱好" :labelCol="labelCol" :wrapperCol="wrapperCol">
-              <j-editor v-decorator="['hobby',{trigger:'input'}]"/>
+            <a-form-item label=" 兴趣爱好" :labelCol="{span:3}" :wrapperCol="{span:20}">
+              <a-textarea v-decorator="['hobby']" rows="4" placeholder="请输入兴趣爱好"/>
+
             </a-form-item>
           </a-col>
           <a-col :span="24">
-            <a-form-item label="备注" :labelCol="labelCol" :wrapperCol="wrapperCol">
-              <j-editor v-decorator="['remark',{trigger:'input'}]"/>
+            <a-form-item label="备注" :labelCol="{span:3}" :wrapperCol="{span:20}">
+              <a-textarea v-decorator="['remark']" rows="4" placeholder="请输入备注"/>
+
             </a-form-item>
           </a-col>
           <a-col v-if="showFlowSubmitButton" :span="24" style="text-align: center">
@@ -128,7 +130,7 @@
         model: {},
         labelCol: {
           xs: { span: 24 },
-          sm: { span: 5 },
+          sm: { span: 6 },
         },
         wrapperCol: {
           xs: { span: 24 },

@@ -32,7 +32,7 @@
         :menu="menus"
         :theme="theme"
         @menuSecond="selectMenu"
-        style="display: inline-block;background-color:#1890FF;width:77%;color:#fff"
+        style="display: inline-block;background-color:#1890FF;width:75%;color:#fff"
       />
       <s-menu
         mode="horizontal"

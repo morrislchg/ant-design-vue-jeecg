@@ -75,17 +75,17 @@
     <!-- table区域-begin -->
     <div>
       <div style="margin-bottom: 10px;">
-        <a-radio-group default-value="1,2,3,4" v-model="status" @change="getValue" size="large" button-style="solid">
-          <a-radio-button value="1,2,3,4">
+        <a-radio-group default-value="0,1,2,3" v-model="status" @change="getValue" size="large" button-style="solid">
+          <a-radio-button value="0,1,2,3">
             全部
           </a-radio-button>
-          <a-radio-button value="2">
+          <a-radio-button value="0">
             我的待办
           </a-radio-button>
-          <a-radio-button value="3">
+          <a-radio-button value="1">
             我的已办
           </a-radio-button>
-          <a-radio-button value="4">
+          <a-radio-button value="2">
             我的办结
           </a-radio-button>
         </a-radio-group>
@@ -233,6 +233,7 @@ export default {
         },
         {
           title: '项目编号',
+          sorter: true,
           align: 'center',
           dataIndex: 'projectId'
         },
@@ -273,6 +274,7 @@ export default {
         },
         {
           title: '联系人手机',
+          sorter: true,
           align: 'center',
           dataIndex: 'mobilePhone'
         },
@@ -288,6 +290,7 @@ export default {
         },
         {
           title: '业务类型',
+          sorter: true,
           align: 'center',
           dataIndex: 'bussinessType'
         },
@@ -307,6 +310,11 @@ export default {
           dataIndex: 'projectBudget'
         },
         {
+          title:'项目内容简介',
+          align:"center",
+          dataIndex: 'contents'
+        },
+        {
           title: '项目状态',
           align: 'center',
           key: 'status',
@@ -321,7 +329,7 @@ export default {
           scopedSlots: { customRender: 'action' }
         }
       ],
-      status: '1,2,3,4',
+      status: '0,1,2,3',
       url: {
         list: '/estar/cshxmcj/list',
         delete: '/estar/cshxmcj/delete',

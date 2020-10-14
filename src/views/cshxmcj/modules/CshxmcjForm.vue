@@ -3,39 +3,39 @@
     <j-form-container :disabled="formDisabled">
       <a-form :form="form" slot="detail">
         <a-row>
-          <a-col :span="12">
-            <a-form-item label="项目编号" :labelCol="labelCol" :wrapperCol="wrapperCol">
-              <a-input v-decorator="['projectId']" placeholder="请输入项目编号"></a-input>
-            </a-form-item>
-          </a-col>
-          <a-col :span="12">
-            <a-form-item label="项目名称" :labelCol="labelCol" :wrapperCol="wrapperCol">
+<!--          <a-col :span="12">-->
+<!--            <a-form-item label="项目编号" :labelCol="labelCol" :wrapperCol="wrapperCol">-->
+<!--              <a-input v-decorator="['projectId']" placeholder="请输入项目编号"></a-input>-->
+<!--            </a-form-item>-->
+<!--          </a-col>-->
+          <a-col :span="24">
+            <a-form-item label="项目名称" :labelCol="{span:3}" :wrapperCol="{span:20}">
               <a-input v-decorator="['projectName']" placeholder="请输入项目名称"></a-input>
             </a-form-item>
           </a-col>
-          <a-col :span="12">
-            <a-form-item label="甲方单位名称" :labelCol="labelCol" :wrapperCol="wrapperCol">
+          <a-col :span="24">
+            <a-form-item label="甲方单位名称" :labelCol="{span:3}" :wrapperCol="{span:20}">
               <a-input v-decorator="['partaName']" placeholder="请输入甲方单位名称"></a-input>
             </a-form-item>
           </a-col>
           <a-col :span="12">
             <a-form-item label="法定代表人" :labelCol="labelCol" :wrapperCol="wrapperCol">
-              <a-input v-decorator="['legalRepresentative']" placeholder="请输入法定代表人"></a-input>
+              <a-input v-decorator="['legalRepresentative',validatorRules.legalRepresentative]" placeholder="请输入法定代表人"></a-input>
             </a-form-item>
           </a-col>
           <a-col :span="12">
             <a-form-item label="统一社会信用代码" :labelCol="labelCol" :wrapperCol="wrapperCol">
-              <a-input v-decorator="['socialCode']" placeholder="请输入统一社会信用代码"></a-input>
+              <a-input v-decorator="['socialCode',validatorRules.socialCode]" placeholder="请输入统一社会信用代码"></a-input>
             </a-form-item>
           </a-col>
           <a-col :span="12">
             <a-form-item label="企业性质" :labelCol="labelCol" :wrapperCol="wrapperCol">
-              <a-input v-decorator="['enterpriseNature']" placeholder="请输入企业性质"></a-input>
+              <a-input v-decorator="['enterpriseNature',validatorRules.enterpriseNature]" placeholder="请输入企业性质"></a-input>
             </a-form-item>
           </a-col>
-          <a-col :span="12">
-            <a-form-item label="详细地址" :labelCol="labelCol" :wrapperCol="wrapperCol">
-              <a-input v-decorator="['detailAddress']" placeholder="请输入详细地址"></a-input>
+          <a-col :span="24">
+            <a-form-item label="详细地址" :labelCol="{span:3}" :wrapperCol="{span:20}">
+              <a-input v-decorator="['detailAddress',validatorRules.detailAddress]" placeholder="请输入详细地址"></a-input>
             </a-form-item>
           </a-col>
           <a-col :span="12">
@@ -68,9 +68,10 @@
               <a-input v-decorator="['department']" placeholder="请输入所属部门"></a-input>
             </a-form-item>
           </a-col>
-          <a-col :span="24">
+          <a-col :span="12">
             <a-form-item label="初次登记项目所处阶段" :labelCol="labelCol" :wrapperCol="wrapperCol">
-              <a-textarea v-decorator="['projectInitStatus']" rows="4" placeholder="请输入初次登记项目所处阶段"/>
+              <a-input v-decorator="['projectInitStatus']" placeholder="请输入初次登记项目所处阶段"></a-input>
+<!--              <a-textarea v-decorator="['projectInitStatus']" rows="4" placeholder="请输入初次登记项目所处阶段"/>-->
             </a-form-item>
           </a-col>
           <a-col :span="12">
@@ -81,6 +82,11 @@
           <a-col :span="12">
             <a-form-item label="项目状态" :labelCol="labelCol" :wrapperCol="wrapperCol">
               <a-input v-decorator="['status']" placeholder="请输入项目状态"></a-input>
+            </a-form-item>
+          </a-col>
+          <a-col :span="24">
+            <a-form-item label="项目内容简介" :labelCol="{span:3}" :wrapperCol="{span:20}">
+              <a-textarea v-decorator="['contents']" rows="4" placeholder="请输入项目内容简介"/>
             </a-form-item>
           </a-col>
           <a-col v-if="showFlowSubmitButton" :span="24" style="text-align: center">
@@ -130,7 +136,7 @@
         model: {},
         labelCol: {
           xs: { span: 24 },
-          sm: { span: 5 },
+          sm: { span: 6 },
         },
         wrapperCol: {
           xs: { span: 24 },
@@ -138,6 +144,26 @@
         },
         confirmLoading: false,
         validatorRules: {
+          legalRepresentative: {
+            rules: [
+              { required: true, message: '请输入法定代表人!'},
+            ]
+          },
+          socialCode: {
+            rules: [
+              { required: true, message: '请输入统一社会信用代码!'},
+            ]
+          },
+          enterpriseNature: {
+            rules: [
+              { required: true, message: '请输入企业性质!'},
+            ]
+          },
+          detailAddress: {
+            rules: [
+              { required: true, message: '请输入详细地址!'},
+            ]
+          },
         },
         url: {
           add: "/estar/cshxmcj/add",
